@@ -2,16 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\FranchiseResource\Pages;
-use App\Filament\Resources\FranchiseResource\RelationManagers;
-use App\Models\Franchise;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
+use App\Models\Franchise;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\FranchiseResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\FranchiseResource\RelationManagers;
 
 class FranchiseResource extends Resource
 {
@@ -23,7 +25,8 @@ class FranchiseResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('description')->required(),
+                TextInput::make('state')->required(),
             ]);
     }
 
@@ -31,7 +34,7 @@ class FranchiseResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('description')->searchable(),
             ])
             ->filters([
                 //
@@ -61,4 +64,5 @@ class FranchiseResource extends Resource
             'edit' => Pages\EditFranchise::route('/{record}/edit'),
         ];
     }
+    
 }
