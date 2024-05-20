@@ -2,31 +2,64 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
-use Filament\Tables;
-use Filament\Forms\Form;
-use App\Models\Franchise;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\FranchiseResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\FranchiseResource\RelationManagers;
+use App\Models\Franchise;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class FranchiseResource extends Resource
 {
     protected static ?string $model = Franchise::class;
-
+    
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('description')->required(),
-                TextInput::make('state')->required(),
+                // Forms\Components\Textarea::make('description')
+                //     ->columnSpanFull(),
+                // Forms\Components\TextInput::make('state')
+                //     ->maxLength(255)
+                //     ->default(null),
+                Forms\Components\TextInput::make('company_name')
+                    ->maxLength(255)
+                    ->default(null),
+                Forms\Components\TextInput::make('country')
+                    ->maxLength(255)
+                    ->default(null),
+                Forms\Components\TextInput::make('currency')
+                    ->maxLength(255)
+                    ->default(null),
+                Forms\Components\TextInput::make('identification')
+                    ->maxLength(255)
+                    ->default(null),
+                Forms\Components\TextInput::make('address')
+                    ->maxLength(255)
+                    ->default(null),
+                Forms\Components\TextInput::make('zip_code')
+                    ->maxLength(255)
+                    ->default(null),
+                Forms\Components\TextInput::make('brand_logo')
+                    ->maxLength(255)
+                    ->default(null),
+                Forms\Components\TextInput::make('contact_phone')
+                    ->tel()
+                    ->maxLength(255)
+                    ->default(null),
+                Forms\Components\TextInput::make('email')
+                    ->email()
+                    ->maxLength(255)
+                    ->default(null),
+                Forms\Components\TextInput::make('website_url')
+                    ->maxLength(255)
+                    ->default(null),
             ]);
     }
 
@@ -34,7 +67,36 @@ class FranchiseResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('description')->searchable(),
+                // Tables\Columns\TextColumn::make('state')
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('created_at')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('updated_at')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('company_name')
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('country')
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('currency')
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('identification')
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('address')
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('zip_code')
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('brand_logo')
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('contact_phone')
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('email')
+                //     ->searchable(),
+                // Tables\Columns\TextColumn::make('website_url')
+                //     ->searchable(),
             ])
             ->filters([
                 //
@@ -64,5 +126,4 @@ class FranchiseResource extends Resource
             'edit' => Pages\EditFranchise::route('/{record}/edit'),
         ];
     }
-    
 }
