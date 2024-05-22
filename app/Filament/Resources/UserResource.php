@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
+use Filament\Forms\Components\Section;
 
 class UserResource extends Resource
 {
@@ -24,26 +25,30 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('username')
-                    ->maxLength(255)
-                    ->required(),
-                // Forms\Components\DateTimePicker::make('email_verified_at'),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required()
-                    ->maxLength(255)
-                    ->hiddenOn('edit'),
-                // Forms\Components\TextInput::make('state')
-                //     ->numeric()
-                //     ->default(null),
-                Select::make('roles')->multiple()->relationship('roles', 'name')  
+                Section::make('User info')
+                ->description('You must fill out all fields')
+                ->columns(2)
+                ->schema([
+                    Forms\Components\TextInput::make('username')
+                        ->maxLength(255)
+                        ->required(),
+                    Forms\Components\TextInput::make('name')
+                        ->required()
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('password')
+                        ->password()
+                        ->required()
+                        ->maxLength(255)
+                        ->hiddenOn('edit'),
+                    Forms\Components\TextInput::make('email')
+                        ->email()
+                        ->required()
+                        ->maxLength(255),
+                    Select::make('roles')
+                        ->multiple()
+                        ->relationship('roles', 'name')
+                        ->required()
+                ])
             ]);
     }
 
@@ -51,18 +56,12 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('username')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('username')
-                    ->searchable(),
-                // Tables\Columns\TextColumn::make('email_verified_at')
-                //     ->dateTime()
-                //     ->sortable(),
-                // Tables\Columns\TextColumn::make('state')
-                //     ->numeric()
-                //     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
