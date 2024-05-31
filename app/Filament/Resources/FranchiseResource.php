@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Section;
 
 class FranchiseResource extends Resource
 {
@@ -23,43 +24,54 @@ class FranchiseResource extends Resource
     {
         return $form
             ->schema([
-                // Forms\Components\Textarea::make('description')
-                //     ->columnSpanFull(),
-                // Forms\Components\TextInput::make('state')
-                //     ->maxLength(255)
-                //     ->default(null),
-                Forms\Components\TextInput::make('company_name')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('country')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('currency')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('identification')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('address')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('zip_code')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('brand_logo')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('contact_phone')
-                    ->tel()
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('website_url')
-                    ->maxLength(255)
-                    ->default(null),
+                Section::make('Franchise info')
+                ->description('You must fill out all fields')
+                ->columns(2)
+                ->schema([
+                    Forms\Components\TextInput::make('company_name')
+                        ->maxLength(255)
+                        ->default(null)
+                        ->required(),
+                    Forms\Components\TextInput::make('country')
+                        ->maxLength(255)
+                        ->default(null)
+                        ->required(),
+                    Forms\Components\TextInput::make('currency')
+                        ->maxLength(255)
+                        ->default(null)
+                        ->required(),
+                    Forms\Components\TextInput::make('identification')
+                        ->maxLength(255)
+                        ->default(null)
+                        ->required(),
+                    Forms\Components\TextInput::make('address')
+                        ->maxLength(255)
+                        ->default(null)
+                        ->required(),
+                    Forms\Components\TextInput::make('zip_code')
+                        ->maxLength(255)
+                        ->default(null)
+                        ->required(),
+                    Forms\Components\TextInput::make('brand_logo')
+                        ->maxLength(255)
+                        ->default(null)
+                        ->required(),
+                    Forms\Components\TextInput::make('contact_phone')
+                        ->tel()
+                        ->maxLength(255)
+                        ->default(null)
+                        ->required(),
+                    Forms\Components\TextInput::make('email')
+                        ->email()
+                        ->maxLength(255)
+                        ->default(null)
+                        ->required(),
+                    Forms\Components\TextInput::make('website_url')
+                        ->maxLength(255)
+                        ->default(null)
+                        ->required(),
+                ])
+                
             ]);
     }
 
