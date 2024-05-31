@@ -13,6 +13,6 @@ class FranchisesTableSedeer extends Seeder
      */
     public function run(): void
     {
-        Franchise::factory()->count(50)->create();
+        Franchise::factory()->count(6)->create();
     }
 }

@@ -32,6 +32,10 @@ class FranchiseResource extends Resource
                         ->maxLength(255)
                         ->default(null)
                         ->required(),
+                    Forms\Components\FileUpload::make('brand_logo')
+                        ->directory('images/franchises') 
+                        ->image()
+                        ->required(),
                     Forms\Components\TextInput::make('country')
                         ->maxLength(255)
                         ->default(null)
@@ -49,10 +53,6 @@ class FranchiseResource extends Resource
                         ->default(null)
                         ->required(),
                     Forms\Components\TextInput::make('zip_code')
-                        ->maxLength(255)
-                        ->default(null)
-                        ->required(),
-                    Forms\Components\TextInput::make('brand_logo')
                         ->maxLength(255)
                         ->default(null)
                         ->required(),
