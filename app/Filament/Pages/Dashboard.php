@@ -8,13 +8,10 @@ use Filament\Facades\Filament;
 class Dashboard extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    // protected static bool $shouldRegisterNavigation = false;
     protected static ?string $navigationLabel = 'Home';
-
-    protected static string $view = 'filament.pages.Dashboard';
-
+    protected static string $view = 'filament.pages.dashboard';
     protected static string $routePath = '/';
-    // protected static string $title = 'ho';
-
     // protected static ?int $navigationSort = -2;
 
     /**

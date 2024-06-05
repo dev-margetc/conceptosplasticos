@@ -18,10 +18,10 @@
                     wire:click="openNewUserModal"
                     label="New label"
                 /> --}}
-                {{-- <div class="mt-4 flex justify-between"> --}}
+                <div class="mt-4 flex justify-between">
                     {{-- <a href="{{ route('filament.index', $franchise) }}" class="text-blue-600">Ver</a> --}}
-                    {{-- <a href="/admin/franchises/{{$franchise->id}}/edit" class="text-blue-600">Editar</a> --}}
-                {{-- </div> --}}
+                    <a href="/admin/franchises/{{$franchise->id}}/edit" class="text-blue-600">Editar</a>
+                </div>
             </div>
         @endforeach
     </div>

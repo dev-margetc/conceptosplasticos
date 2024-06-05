@@ -23,6 +23,7 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        $prueba = request()->getPathInfo() != '/admin/franchises';
         return $panel
             ->default()
             ->id('admin')
@@ -57,6 +58,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->navigation($prueba);
     }
 }
