@@ -5,15 +5,19 @@ namespace App\Filament\Resources;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Client;
-use App\Models\Country;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\ProjectStatus;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\Action;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\ClientResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ClientResource\RelationManagers;
+use App\Filament\Resources\ClienteResource\Actions\CreateClientHistoryAction;
+use App\Filament\Resources\ClienteResource\Actions\ViewHistoryAction;
 
 class ClientResource extends Resource
 {
@@ -35,37 +39,42 @@ class ClientResource extends Resource
                         ->relationship(name: 'country', titleAttribute: 'name')
                         ->required()
                         ->preload(),
-                    Forms\Components\TextInput::make('business_type')
+                    TextInput::make('business_type')
                         ->required()
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('customer_type')
+                    TextInput::make('customer_type')
                         ->required()
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('name')
+                    TextInput::make('name')
                         ->required()
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('phone')
+                    TextInput::make('phone')
                         ->tel()
                         ->required()
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('email')
+                    TextInput::make('email')
                         ->email()
                         ->required()
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('address')
+                    TextInput::make('address')
                         ->required()
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('lead_origin')
+                    TextInput::make('lead_origin')
                         ->required()
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('project_name')
+                    TextInput::make('project_name')
                         ->maxLength(255),
+                    //campos del historial del cliente
                     Forms\Components\Select::make('project_status_id')
-                        ->relationship(name: 'projectStatus', titleAttribute: 'description')
-                        ->required()
-                        ->preload(),
-                    Forms\Components\Textarea::make('comment')
-                        ->columnSpanFull(),
+                        ->label('status')
+                        ->options(ProjectStatus::all()->pluck('description', 'id'))
+                        ->hiddenOn('edit')
+                        ->required(),
+                    Forms\Components\Textarea::make('comments')
+                        ->label('Comentarios')
+                        ->columnSpanFull()
+                        ->hiddenOn('edit')
+                        ->required(),
                 ])
             ]);
     }
@@ -82,16 +91,23 @@ class ClientResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('projectStatus.description')
+                Tables\Columns\TextColumn::make('latest_project_status.description')
+                    ->label('Status')
                     ->searchable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                // Tables\Actions\EditAction::make(),
                 Tables\Actions\ActionGroup::make([
-                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\EditAction::make()
+                        ->label('information'),
+                    CreateClientHistoryAction::make('create_history'),
+                    ViewHistoryAction::make('view_history'),
+                    // Action::make('view')
+                    //     ->label('view log')
+                    //     ->icon('heroicon-s-eye'),
+                    Tables\Actions\DeleteAction::make(),
                 ])->iconButton()->button()
                 ->label('Actions')
                 ->color('gray')

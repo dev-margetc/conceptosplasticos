@@ -9,8 +9,8 @@ class ProjectStatus extends Model
 {
     use HasFactory;
 
-    public function clients()
+    public function clientHistory()
     {
-        return $this->hasMany(Client::class, 'project_status_id');
+        return $this->hasMany(ClientHistory::class);
     }
 }

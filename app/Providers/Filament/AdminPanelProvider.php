@@ -23,7 +23,7 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        $prueba = request()->getPathInfo() != '/admin/franchises';
+        $prueba = !str_starts_with(request()->getPathInfo(), '/admin/franchises');
         return $panel
             ->default()
             ->id('admin')

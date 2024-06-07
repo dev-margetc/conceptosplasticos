@@ -19,17 +19,23 @@ class Client extends Model
         'address',
         'lead_origin',
         'project_name',
-        'project_status_id',
-        'comment'
     ];
 
-    public function projectStatus()
+    public function clientHistory()
     {
-        return $this->belongsTo(ProjectStatus::class, 'project_status_id');
+        return $this->hasMany(ClientHistory::class);
     }
 
     public function country()
     {
         return $this->belongsTo(Country::class, 'country_id');
+    }
+    // public function projectStatus()
+    // {
+    //     return $this->belongsTo(ProjectStatus::class);
+    // }
+    public function getLatestProjectStatusAttribute()
+    {
+        return $this->clientHistory()->latest()->first()->projectStatus ?? null;
     }
 }
