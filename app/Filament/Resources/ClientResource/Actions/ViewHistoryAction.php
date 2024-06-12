@@ -19,7 +19,7 @@ class ViewHistoryAction extends Action
             ->action(function (array $data, $record) {
                 // No se requiere acción ya que solo estamos mostrando un modal
             })
-            ->modalWidth(MaxWidth::FiveExtraLarge)
+            ->modalWidth(MaxWidth::SevenExtraLarge)
             ->modalContent(fn ($record) => view('filament.pages.client-resource.view-history', [
                 'clientId' => $record->id,
             ]));

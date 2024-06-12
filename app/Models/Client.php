@@ -38,4 +38,9 @@ class Client extends Model
     {
         return $this->clientHistory()->latest()->first()->projectStatus ?? null;
     }
+
+    public function rawMaterial()
+    {
+        return $this->hasMany(RawMaterial::class);
+    }
 }
