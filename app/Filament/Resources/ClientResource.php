@@ -106,7 +106,8 @@ class ClientResource extends Resource
                     ViewHistoryAction::make('view_history'),
                     Action::make('view_dismantling')
                         ->label('View dismantling')
-                        ->icon('heroicon-o-arrow-down-tray'),
+                        ->icon('heroicon-o-arrow-down-tray')
+                        ->url( fn (): string => route('pdf') ),
                     Tables\Actions\DeleteAction::make(),
                 ])->iconButton()->button()
                 ->label('Actions')
