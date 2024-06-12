@@ -21,7 +21,7 @@ class ViewHistoryAction extends Action
             })
             ->modalWidth(MaxWidth::FiveExtraLarge)
             ->modalContent(fn ($record) => view('filament.pages.client-resource.view-history', [
-                'history' => $record->clientHistory()->with('projectStatus', 'user')->get(),
+                'clientId' => $record->id,
             ]));
     }
 }

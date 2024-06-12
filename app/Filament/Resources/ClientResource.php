@@ -104,9 +104,9 @@ class ClientResource extends Resource
                         ->label('information'),
                     CreateClientHistoryAction::make('create_history'),
                     ViewHistoryAction::make('view_history'),
-                    // Action::make('view')
-                    //     ->label('view log')
-                    //     ->icon('heroicon-s-eye'),
+                    Action::make('view_dismantling')
+                        ->label('View dismantling')
+                        ->icon('heroicon-o-arrow-down-tray'),
                     Tables\Actions\DeleteAction::make(),
                 ])->iconButton()->button()
                 ->label('Actions')
