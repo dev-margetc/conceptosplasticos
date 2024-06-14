@@ -63,7 +63,7 @@ class FranchisePolicy
      */
     public function forceDelete(User $user, Franchise $franchise): bool
     {
-        return $user->can('force_delete_franchise');
+        return $user->can('{{ ForceDelete }}');
     }
 
     /**
@@ -71,7 +71,7 @@ class FranchisePolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_franchise');
+        return $user->can('{{ ForceDeleteAny }}');
     }
 
     /**
@@ -79,7 +79,7 @@ class FranchisePolicy
      */
     public function restore(User $user, Franchise $franchise): bool
     {
-        return $user->can('restore_franchise');
+        return $user->can('{{ Restore }}');
     }
 
     /**
@@ -87,7 +87,7 @@ class FranchisePolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_franchise');
+        return $user->can('{{ RestoreAny }}');
     }
 
     /**
@@ -95,7 +95,7 @@ class FranchisePolicy
      */
     public function replicate(User $user, Franchise $franchise): bool
     {
-        return $user->can('replicate_franchise');
+        return $user->can('{{ Replicate }}');
     }
 
     /**
@@ -103,6 +103,6 @@ class FranchisePolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_franchise');
+        return $user->can('{{ Reorder }}');
     }
 }

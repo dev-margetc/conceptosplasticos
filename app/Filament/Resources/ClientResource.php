@@ -18,8 +18,10 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ClientResource\RelationManagers;
 use App\Filament\Resources\ClienteResource\Actions\CreateClientHistoryAction;
 use App\Filament\Resources\ClienteResource\Actions\ViewHistoryAction;
+use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
+use Illuminate\Support\Facades\Auth;
 
-class ClientResource extends Resource
+class ClientResource extends Resource  implements HasShieldPermissions
 {
     protected static ?string $model = Client::class;
 
@@ -107,7 +109,8 @@ class ClientResource extends Resource
                     Action::make('view_dismantling')
                         ->label('View dismantling')
                         ->icon('heroicon-o-arrow-down-tray')
-                        ->url( fn (): string => route('pdf') ),
+                        ->url( fn (): string => route('pdf') )
+                        ->visible(auth()->user()->can('view_dismantling_client')),
                     Tables\Actions\DeleteAction::make(),
                 ])->iconButton()->button()
                 ->label('Actions')
@@ -133,6 +136,18 @@ class ClientResource extends Resource
             'index' => Pages\ListClients::route('/'),
             'create' => Pages\CreateClient::route('/create'),
             'edit' => Pages\EditClient::route('/{record}/edit'),
+        ];
+    }
+    public static function getPermissionPrefixes(): array
+    {
+        return [
+            'view',
+            'view_any',
+            'create',
+            'update',
+            'delete',
+            'delete_any',
+            'view_dismantling'
         ];
     }
 }
