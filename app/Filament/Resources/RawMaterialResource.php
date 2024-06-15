@@ -51,6 +51,10 @@ class RawMaterialResource extends Resource
                         Forms\Components\TextInput::make('height')
                             ->required()
                             ->numeric(),
+                        Forms\Components\Select::make('client_id')
+                            ->label('Project Name')
+                            ->options(Client::whereNotNull('project_name')->pluck('project_name', 'id'))
+                            ->searchable(),
                         // Forms\Components\Select::make('client_id')
                         // ->label('Project')
                         // ->relationship('client', 'project_name')
@@ -92,7 +96,7 @@ class RawMaterialResource extends Resource
                 //
             ])
             ->actions([
-                // Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

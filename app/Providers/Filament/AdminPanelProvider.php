@@ -18,9 +18,19 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\Facades\Filament;
 
 class AdminPanelProvider extends PanelProvider
 {
+    // public function boot()
+    // {
+    //     Filament::serving(function () {
+    //         Filament::registerStyles([
+    //             mix('css/custom-styles.css'),
+    //         ]);
+    //     });
+    // }
+
     public function panel(Panel $panel): Panel
     {
         $prueba = !str_starts_with(request()->getPathInfo(), '/admin/franchises');

@@ -11,8 +11,8 @@ class Client extends Model
 
     protected $fillable = [
         'country_id',
-        'business_type',
-        'customer_type',
+        'business_type_id',
+        'customer_type_id',
         'name',
         'phone',
         'email',
@@ -42,5 +42,15 @@ class Client extends Model
     public function rawMaterial()
     {
         return $this->hasMany(RawMaterial::class);
+    }
+
+    public function businessType()
+    {
+        return $this->belongsTo(BusinessType::class);
+    }
+
+    public function customerType()
+    {
+        return $this->belongsTo(CustomerType::class);
     }
 }

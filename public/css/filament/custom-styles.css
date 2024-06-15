@@ -1,0 +1,4 @@
+/* Desactivar el scrollbar horizontal en tablas de Filament */
+.filament-table-wrapper {
+    overflow-x: hidden !important;
+}

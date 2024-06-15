@@ -2,15 +2,15 @@
 
 namespace App\Livewire;
 
+use Livewire\Component;
+use Filament\Tables\Table;
 use App\Models\ClientHistory;
-use Filament\Forms\Concerns\InteractsWithForms;
+use Illuminate\Contracts\View\View;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
-use Filament\Tables\Table;
-use Illuminate\Contracts\View\View;
-use Livewire\Component;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Tables\Concerns\InteractsWithTable;
 
 class ViewClientHistory extends Component implements HasForms, HasTable
 {
@@ -18,13 +18,6 @@ class ViewClientHistory extends Component implements HasForms, HasTable
     use InteractsWithForms;
 
     public $clientId;
-
-    // protected function getTableQuery()
-    // {
-    //     return ClientHistory::query()
-    //         ->where('client_id', $this->clientId)
-    //         ->with('projectStatus', 'user');
-    // }
 
     public function table(Table $table): Table
     {
@@ -46,7 +39,8 @@ class ViewClientHistory extends Component implements HasForms, HasTable
                     ->sortable(),
                 TextColumn::make('comments')
                     ->label('Comments')
-                    ->sortable(),
+                    ->sortable()
+                    ->wrap(),
             ])
             ->filters([
                 // ...

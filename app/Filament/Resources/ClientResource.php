@@ -7,19 +7,20 @@ use Filament\Tables;
 use App\Models\Client;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\CustomerType;
 use App\Models\ProjectStatus;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
+use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\ClientResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ClientResource\RelationManagers;
-use App\Filament\Resources\ClienteResource\Actions\CreateClientHistoryAction;
-use App\Filament\Resources\ClienteResource\Actions\ViewHistoryAction;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
-use Illuminate\Support\Facades\Auth;
+use App\Filament\Resources\ClienteResource\Actions\ViewHistoryAction;
+use App\Filament\Resources\ClienteResource\Actions\CreateClientHistoryAction;
 
 class ClientResource extends Resource  implements HasShieldPermissions
 {
@@ -41,12 +42,24 @@ class ClientResource extends Resource  implements HasShieldPermissions
                         ->relationship(name: 'country', titleAttribute: 'name')
                         ->required()
                         ->preload(),
-                    TextInput::make('business_type')
+                    Forms\Components\Select::make('business_type_id')
+                        ->label('Business Type')
+                        ->relationship('businessType', 'description')
+                        ->reactive()
                         ->required()
-                        ->maxLength(255),
-                    TextInput::make('customer_type')
-                        ->required()
-                        ->maxLength(255),
+                        ->afterStateUpdated(function (callable $set) {
+                            $set('customer_type_id', null);
+                        }),
+                    Forms\Components\Select::make('customer_type_id')
+                        ->label('Customer Type')
+                        ->options(function ($get) {
+                            $businessTypeId = $get('business_type_id');
+                            if ($businessTypeId) {
+                                return CustomerType::where('business_type_id', $businessTypeId)->pluck('name', 'id');
+                            }
+                            return [];
+                        })
+                        ->required(),
                     TextInput::make('name')
                         ->required()
                         ->maxLength(255),
