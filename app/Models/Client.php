@@ -53,4 +53,9 @@ class Client extends Model
     {
         return $this->belongsTo(CustomerType::class);
     }
+
+    public function component()
+    {
+        return $this->hasMany(Component::class);
+    }
 }
