@@ -20,9 +20,8 @@ return new class extends Migration
         Schema::create('components', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('stock');
-            $table->foreignId('client_id')->constrained()->onDelete('cascade')->nullable();
-            $table->foreignId('group_id')->constrained('groups')->onDelete('cascade')->nullable();
+            $table->foreignId('client_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
             $table->timestamps();
         });
     }
