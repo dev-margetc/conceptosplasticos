@@ -50,6 +50,7 @@ class ComponentResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $in = "";
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('Group')->sortable(),
@@ -59,9 +60,13 @@ class ComponentResource extends Resource
                     ->default(0),
                 Tables\Columns\TextInputColumn::make('in')
                     ->label('IN')
-                    ->default('')
-                    ->sortable()
-                    ->searchable(),
+                    ->updateStateUsing(function ($record, $state) {
+                        $record->in =  $state;
+                        // $in = $state;
+                        // print_r($record->in);
+                        // dd($record->in);
+                        // return $state;
+                    }),
                 Tables\Columns\TextInputColumn::make('out')
                     ->label('OUT')
                     ->default('')
