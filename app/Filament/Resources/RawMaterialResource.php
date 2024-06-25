@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
-use App\Models\Client;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\RawMaterial;
@@ -14,6 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\RawMaterialResource\Pages;
 use App\Filament\Resources\RawMaterialResource\RelationManagers;
+use App\Models\Project;
 
 class RawMaterialResource extends Resource
 {
@@ -53,7 +53,7 @@ class RawMaterialResource extends Resource
                             ->numeric(),
                         Forms\Components\Select::make('client_id')
                             ->label('Project Name')
-                            ->options(Client::whereNotNull('project_name')->pluck('project_name', 'id'))
+                            ->options(Project::whereNotNull('name')->pluck('name', 'id'))
                             ->searchable(),
                         // Forms\Components\Select::make('client_id')
                         // ->label('Project')

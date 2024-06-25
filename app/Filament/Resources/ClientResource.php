@@ -77,7 +77,9 @@ class ClientResource extends Resource  implements HasShieldPermissions
                     TextInput::make('lead_origin')
                         ->required()
                         ->maxLength(255),
-                    TextInput::make('project_name')
+                    //campos del proyecto
+                    TextInput::make('project.name')
+                        ->label('project name')
                         ->maxLength(255),
                     //campos del historial del cliente
                     Forms\Components\Select::make('project_status_id')
@@ -100,7 +102,7 @@ class ClientResource extends Resource  implements HasShieldPermissions
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('project_name')
+                Tables\Columns\TextColumn::make('project.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable(),

@@ -18,7 +18,6 @@ class Client extends Model
         'email',
         'address',
         'lead_origin',
-        'project_name',
     ];
 
     public function clientHistory()
@@ -57,5 +56,9 @@ class Client extends Model
     public function component()
     {
         return $this->hasMany(Component::class);
+    }
+    public function project()
+    {
+        return $this->hasMany(Project::class);
     }
 }
