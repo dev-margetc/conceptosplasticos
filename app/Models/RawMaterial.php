@@ -24,4 +24,10 @@ class RawMaterial extends Model
     {
         return $this->belongsTo(Client::class);
     }
+    public function component()
+    {
+        return $this->belongsToMany(Component::class, 'component_raw_material')
+                    ->withPivot('percentage')
+                    ->withTimestamps();
+    }
 }
