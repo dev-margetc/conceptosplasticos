@@ -16,6 +16,7 @@ use App\Filament\Resources\ComponentResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ComponentResource\RelationManagers;
 use App\Filament\Resources\ComponentResource\Actions\CreateComponentHistoryAction;
+use App\Filament\Resources\ComponentResource\Actions\ViewHistoryAction;
 
 class ComponentResource extends Resource
 {
@@ -73,7 +74,12 @@ class ComponentResource extends Resource
                     ->icon('heroicon-o-clock')
                     ->color('warning')
                     ->size(Tables\Columns\IconColumn\IconColumnSize::Medium)
-                    ->tooltip(fn ($record) => 'Información del Mix'),
+                    ->tooltip(function ($record) {
+                        // dd($record->rawMaterial);
+                        return $record->rawMaterial->isEmpty() 
+                        ? 'No materials' 
+                        : $record->rawMaterial->map(fn ($material) => $material->name . ' - ' . $material->pivot->percentage . '%')->implode(', ');
+                    }),
                 Tables\Columns\TextColumn::make('stock')
                     ->default(0),
                 Tables\Columns\TextInputColumn::make('in')
@@ -101,12 +107,7 @@ class ComponentResource extends Resource
             ])
             ->actions([
                 CreateComponentHistoryAction::make('register'),
-                Tables\Actions\Action::make('view_log')
-                    ->label('View Log')
-                    ->button()
-                    ->action(function (Component $record) {
-                        // Lógica para ver el log aquí
-                    }),
+                ViewHistoryAction::make('view_history'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
