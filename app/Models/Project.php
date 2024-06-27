@@ -19,4 +19,8 @@ class Project extends Model
     {
         return $this->belongsTo(Client::class);
     }
+    public function component()
+    {
+        return $this->belongsToMany(Component::class, 'component_project');
+    }
 }

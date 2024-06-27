@@ -11,10 +11,10 @@ class Component extends Model
 
     protected $fillable = ['name', 'stock', 'client_id', 'group_id'];
 
-    public function client()
-    {
-        return $this->belongsTo(Client::class);
-    }
+    // public function client()
+    // {
+    //     return $this->belongsTo(Client::class);
+    // }
 
     public function group()
     {
@@ -30,5 +30,9 @@ class Component extends Model
         return $this->belongsToMany(RawMaterial::class, 'component_raw_material')
                     ->withPivot('percentage')
                     ->withTimestamps();
+    }
+    public function project()
+    {
+        return $this->belongsToMany(Project::class, 'component_project');
     }
 }
