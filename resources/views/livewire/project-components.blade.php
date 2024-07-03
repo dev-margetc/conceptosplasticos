@@ -21,6 +21,7 @@
                     </x-slot>
                     <!-- Aquí se mostrarán los componentes del grupo -->
                     <p>Componentes para {{ $group->description }}</p>
+                    @livewire('list-groups-and-their-components', ['groupId' => $group->id, 'projectId'=> $this->project_id])
                 </x-filament::section>
             @endforeach
         </div>

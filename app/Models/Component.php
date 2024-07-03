@@ -35,4 +35,8 @@ class Component extends Model
     {
         return $this->belongsToMany(Project::class, 'component_project');
     }
+    public function getKgPriceAttribute()
+    {
+        return $this->rawMaterial->sum('cost_kg');
+    }
 }
