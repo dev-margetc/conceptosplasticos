@@ -26,6 +26,8 @@ class ComponentResource extends Resource
     protected static ?string $label = 'Inventary';
     protected static ?int $navigationSort = 4;
 
+    protected $in = 0;
+
     private static function getMaterialSchemas(): array
     {
         $rawMaterials = RawMaterial::all();
@@ -65,14 +67,17 @@ class ComponentResource extends Resource
 
     public static function table(Table $table): Table
     {
-        $in = "";
+        
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('Group')->sortable(),
                 Tables\Columns\IconColumn::make('Mix')
                     ->label('Mix')
-                    ->icon('heroicon-o-clock')
-                    ->color('warning')
+                    // ->icon('heroicon-o-pencil')
+                    ->default(true)
+                    ->boolean()
+                    ->trueIcon('heroicon-s-document')
+                    ->falseIcon('heroicon-o-x-mark')
                     ->size(Tables\Columns\IconColumn\IconColumnSize::Medium)
                     ->tooltip(function ($record) {
                         // dd($record->rawMaterial);
@@ -84,9 +89,14 @@ class ComponentResource extends Resource
                     ->default(0),
                 Tables\Columns\TextInputColumn::make('in')
                     ->label('IN')
-                    ->updateStateUsing(function ($record, $state) {
-                        $record->in =  $state;
-                    }),
+                    // ->updateStateUsing(function ($record, $state) {
+                    //     $record->in =  $state;
+                    //     return $state;
+                        
+                    // })
+                    
+                    
+                    ,
                 Tables\Columns\TextInputColumn::make('out')
                     ->label('OUT')
                     ->default('')
@@ -97,10 +107,11 @@ class ComponentResource extends Resource
                     ->options(Project::all()->pluck('name', 'id'))
                     ->default(null)
                     ->searchable()
-                    ->updateStateUsing(function ($record, $state) {
-                        $record->project_id = $state;
-                        $record->save();
-                    }),
+                    // ->updateStateUsing(function ($record, $state) {
+                    //     $record->project_id = $state;
+                    //     // $record->save();
+                    // })
+                    // ->getState(),
             ])
             ->filters([
                 //

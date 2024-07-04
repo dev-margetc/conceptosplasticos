@@ -2,12 +2,13 @@
 
 namespace App\Livewire;
 
-use App\Models\Component as ModelsComponent;
+use Filament\Tables;
 use Livewire\Component;
 use Filament\Tables\Table;
-use Filament\Tables;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Contracts\HasTable;
+use App\Models\Component as ModelsComponent;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Tables\Concerns\InteractsWithTable;
 
@@ -30,6 +31,12 @@ class ListGroupsAndTheirComponents extends Component implements HasForms, HasTab
                 })
                 ->where('group_id', $this->groupId)
             )
+            ->headerActions([
+                Tables\Actions\CreateAction::make()
+                ->form([
+                        TextInput::make('components')->numeric()->label('IN')->default(0)->required(),
+                    ])
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('Group')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('quantity')->label('Quantity')->default('')->sortable(),

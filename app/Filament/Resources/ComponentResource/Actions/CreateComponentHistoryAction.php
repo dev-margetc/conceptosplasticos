@@ -9,8 +9,10 @@ use Filament\Tables\Actions\Action;
 
 class CreateComponentHistoryAction extends Action
 {
+    
     protected function setUp(): void
     {
+        
         parent::setUp();
 
         $this->name('register')
@@ -18,7 +20,7 @@ class CreateComponentHistoryAction extends Action
             ->button()
             ->accessSelectedRecords()
             ->action(function (Component $record, array $data) {
-                dd($record->out);
+                dd($record);
                 $in = $data['in'] ?? 0;
                 $out = $data['out'] ?? 0;
                 $newStock = $in - $out;

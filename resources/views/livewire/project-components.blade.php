@@ -1,6 +1,6 @@
 <div class="mt-4 space-y-4">
     <div >
-        <label for="project_id">Active Projects</label>
+        {{-- <label for="project_id">Active Projects</label> --}}
         <x-filament::input.wrapper>
             <x-filament::input.select wire:model="project_id" wire:change="getProjectId">
                 <option value="">Select a project</option>
@@ -21,7 +21,12 @@
                     </x-slot>
                     <!-- Aquí se mostrarán los componentes del grupo -->
                     <p>Componentes para {{ $group->description }}</p>
-                    @livewire('list-groups-and-their-components', ['groupId' => $group->id, 'projectId'=> $this->project_id])
+                    <br>
+                    @if ($group->id == 2)
+                        @livewire('excess-material-table', ['groupId' => $group->id, 'projectId'=> $this->project_id])
+                    @else
+                        @livewire('list-groups-and-their-components', ['groupId' => $group->id, 'projectId'=> $this->project_id])
+                    @endif
                 </x-filament::section>
             @endforeach
         </div>
