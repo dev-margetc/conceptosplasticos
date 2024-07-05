@@ -5,12 +5,12 @@ namespace App\Livewire;
 use Filament\Tables;
 use Livewire\Component;
 use Filament\Tables\Table;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Contracts\HasTable;
 use App\Models\Component as ModelsComponent;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Tables\Concerns\InteractsWithTable;
+use App\Filament\Actions\AddComponentToProjectAction;
 
 
 class ListGroupsAndTheirComponents extends Component implements HasForms, HasTable
@@ -32,25 +32,26 @@ class ListGroupsAndTheirComponents extends Component implements HasForms, HasTab
                 ->where('group_id', $this->groupId)
             )
             ->headerActions([
-                Tables\Actions\CreateAction::make()
-                ->form([
-                        TextInput::make('components')->numeric()->label('IN')->default(0)->required(),
-                    ])
+                AddComponentToProjectAction::make()
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('Group')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('quantity')->label('Quantity')->default('')->sortable(),
-                Tables\Columns\TextColumn::make('weight')->label('Weight')->default('')->sortable(),
-                Tables\Columns\TextColumn::make('total_weight')->label('Total Weight')->default('')->sortable(),
+                Tables\Columns\TextColumn::make('quantity')->label('Quantity'),
+                Tables\Columns\TextColumn::make('weight')->label('Weight'),
+                Tables\Columns\TextColumn::make('total_weight')->label('Total Weight'),
                 Tables\Columns\TextColumn::make('kg_price')->label('Kg. Price')->getStateUsing(function ($record) {
                     return $record->kg_price;
+                })->sortable(),
+                Tables\Columns\TextColumn::make('total_cost')->label('Total Cost')->getStateUsing(function ($record) {
+                    // dd($record);
+                    return $record->total_cost;
                 })->sortable(),
             ])
             ->filters([
                 // ...
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

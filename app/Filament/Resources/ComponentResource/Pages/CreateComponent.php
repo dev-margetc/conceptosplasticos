@@ -12,6 +12,7 @@ use Filament\Notifications\Notification;
 class CreateComponent extends CreateRecord
 {
     protected static string $resource = ComponentResource::class;
+    protected $selectedMaterials;
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
@@ -39,13 +40,24 @@ class CreateComponent extends CreateRecord
             ]);
         }
         unset($data['raw_materials']);
-        $component = Component::create($data);
+        $this->selectedMaterials = $selectedMaterials;
+        // $component = Component::create($data);
 
-        foreach ($selectedMaterials as $materialId => $materialData) {
-            $component->rawMaterial()->attach($materialId, ['percentage' => $materialData['percentage']]);
-        }
-
+        // foreach ($selectedMaterials as $materialId => $materialData) {
+        //     $component->rawMaterial()->attach($materialId, ['percentage' => $materialData['percentage']]);
+        // }
         return $data;
     }
+
+    protected function afterCreate(): void
+    {
+        $component = $this->record;
+
+        foreach ($this->selectedMaterials as $materialId => $materialData) {
+            $component->rawMaterial()->attach($materialId, ['percentage' => $materialData['percentage']]);
+        }
+    }
+
+
 
 }

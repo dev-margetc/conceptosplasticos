@@ -9,10 +9,10 @@ class ComponentHistory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['component_id', 'stock', 'in', 'out'];
+    protected $fillable = ['component_project_id', 'stock', 'in', 'out'];
 
-    public function component()
+    public function componentProject()
     {
-        return $this->belongsTo(Component::class);
+        return $this->belongsTo(ComponentProject::class, 'component_project_id');
     }
 }

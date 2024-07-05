@@ -9,12 +9,7 @@ class Component extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'stock', 'client_id', 'group_id'];
-
-    // public function client()
-    // {
-    //     return $this->belongsTo(Client::class);
-    // }
+    protected $fillable = ['name', 'group_id', 'quantity', 'weight', 'total_weight', 'wall', 'ubication', 'large' ];
 
     public function group()
     {
@@ -23,7 +18,7 @@ class Component extends Model
 
     public function componentHistory()
     {
-        return $this->hasMany(ComponentHistory::class);
+        return $this->hasManyThrough(ComponentHistory::class, ComponentProject::class, 'component_id', 'component_project_id');
     }
     public function rawMaterial()
     {
@@ -38,5 +33,13 @@ class Component extends Model
     public function getKgPriceAttribute()
     {
         return $this->rawMaterial->sum('cost_kg');
+    }
+    public function getLatestStockAttribute()
+    {
+        return $this->componentHistory()->orderBy('created_at', 'desc')->first()->stock ?? 0;
+    }
+    public function getTotalCostAttribute()
+    {
+        return $this->quantity * $this->rawMaterial->sum('cost_kg');
     }
 }

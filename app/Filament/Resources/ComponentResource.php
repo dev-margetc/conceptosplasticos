@@ -56,6 +56,18 @@ class ComponentResource extends Resource
                         Forms\Components\Select::make('group_id')
                             ->relationship(name: 'group', titleAttribute: 'description')
                             ->required(),
+                         Forms\Components\TextInput::make('quantity')
+                            ->numeric()
+                            ->label('Quantity')
+                            ->required(),
+                        Forms\Components\TextInput::make('weight')
+                            ->numeric()
+                            ->label('Weight')
+                            ->required(),
+                        Forms\Components\TextInput::make('total_weight')
+                            ->numeric()
+                            ->label('Total Weight')
+                            ->required(),
                     ]),
                 Section::make('select mix')
                     ->columns(3)
@@ -67,7 +79,6 @@ class ComponentResource extends Resource
 
     public static function table(Table $table): Table
     {
-        
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('Group')->sortable(),
@@ -85,28 +96,29 @@ class ComponentResource extends Resource
                         ? 'No materials' 
                         : $record->rawMaterial->map(fn ($material) => $material->name . ' - ' . $material->pivot->percentage . '%')->implode(', ');
                     }),
-                Tables\Columns\TextColumn::make('stock')
+                Tables\Columns\TextColumn::make('latest_stock')
                     ->default(0),
-                Tables\Columns\TextInputColumn::make('in')
-                    ->label('IN')
+                // Tables\Columns\TextInputColumn::make('in')
+                //     ->label('IN')
+                    // ->readOnly()
+                    // ->live()
                     // ->updateStateUsing(function ($record, $state) {
                     //     $record->in =  $state;
                     //     return $state;
                         
                     // })
-                    
-                    
-                    ,
-                Tables\Columns\TextInputColumn::make('out')
-                    ->label('OUT')
-                    ->default('')
-                    ->sortable()
-                    ->searchable(),
-                    Tables\Columns\SelectColumn::make('project_id')
-                    ->label('Project')
-                    ->options(Project::all()->pluck('name', 'id'))
-                    ->default(null)
-                    ->searchable()
+                    // ->readOnly()
+                    // ,
+                // Tables\Columns\TextInputColumn::make('out')
+                //     ->label('OUT')
+                //     ->default('')
+                //     ->sortable()
+                //     ->searchable(),
+                //     Tables\Columns\SelectColumn::make('project_id')
+                //     ->label('Project')
+                //     ->options(Project::all()->pluck('name', 'id'))
+                //     ->default(null)
+                //     ->searchable()
                     // ->updateStateUsing(function ($record, $state) {
                     //     $record->project_id = $state;
                     //     // $record->save();
@@ -116,6 +128,7 @@ class ComponentResource extends Resource
             ->filters([
                 //
             ])
+            ->selectable()
             ->actions([
                 CreateComponentHistoryAction::make('register'),
                 ViewHistoryAction::make('view_history'),

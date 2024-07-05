@@ -25,13 +25,15 @@ class ViewComponentHistory extends Component implements HasForms, HasTable
         return $table
             ->query(
                 ComponentHistory::query()
-                ->where('component_id', $this->componentId)
+                    ->whereHas('componentProject', function ($query) {
+                        $query->where('component_id', $this->componentId);
+                    })
             )
             ->columns([
                 TextColumn::make('created_at')
                     ->label('Date')
                     ->sortable(),
-                TextColumn::make('component.name')
+                TextColumn::make('componentProject.component.name')
                     ->label('group')
                     ->sortable(),
                 TextColumn::make('stock')
@@ -44,7 +46,7 @@ class ViewComponentHistory extends Component implements HasForms, HasTable
                     ->label('out')
                     ->sortable()
                     ->wrap(),
-                TextColumn::make('project')
+                TextColumn::make('componentProject.project.name')
                     ->label('project')
                     ->default('')
             ])

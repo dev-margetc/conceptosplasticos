@@ -2,8 +2,10 @@
 
 namespace App\Livewire;
 
+use App\Filament\Actions\AddComponentToProjectAction;
 use Filament\Tables;
 use Livewire\Component;
+use Filament\Forms;
 use Filament\Tables\Table;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Columns\TextColumn;
@@ -35,10 +37,7 @@ class ExcessMaterialTable extends Component implements HasForms, HasTable
                 ->where('group_id', $this->groupId)
             )
             ->headerActions([
-                Tables\Actions\CreateAction::make()
-                ->form([
-                        TextInput::make('components')->numeric()->label('IN')->default(0)->required(),
-                    ])
+                AddComponentToProjectAction::make()
             ])
             ->columns([
                 TextColumn::make('name')->label('Group')->sortable()->searchable(),
@@ -51,13 +50,13 @@ class ExcessMaterialTable extends Component implements HasForms, HasTable
                     ])
                     ->default('Muro 1')
                     ->sortable(),
-                TextColumn::make('ubication')->label('Ubication')->default(''),
-                TextColumn::make('large')->label('Large')->default(''),
-                TextInputColumn::make('quantity')->label('Quantity')->default(''),
-                TextInputColumn::make('weight')->label('Weight')->default(''),
-                TextColumn::make('real_weight')->label('Real Weight')->default(''),
-                TextColumn::make('waste')->label('Waste')->default(''),
-                TextColumn::make('total_weight')->label('Total Weight')->default(''),
+                TextInputColumn::make('ubication')->label('Ubication'),
+                TextInputColumn::make('large')->label('Large'),
+                TextInputColumn::make('quantity')->label('Quantity'),
+                TextInputColumn::make('weight')->label('Weight'),
+                // TextColumn::make('real_weight')->label('Real Weight'),
+                // TextColumn::make('waste')->label('Waste'),
+                TextColumn::make('total_weight')->label('Total Weight'),
                 TextColumn::make('kg_price')->label('Kg. Price')->getStateUsing(function ($record) {
                     return $record->kg_price;
                 })->sortable(),
@@ -67,7 +66,7 @@ class ExcessMaterialTable extends Component implements HasForms, HasTable
                 // ...
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
