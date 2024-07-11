@@ -14,6 +14,10 @@ class CreateComponent extends CreateRecord
     protected static string $resource = ComponentResource::class;
     protected $selectedMaterials;
 
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $selectedMaterials = array_filter($data['raw_materials'], fn($material) => isset($material['percentage']) && $material['percentage'] > 0);
