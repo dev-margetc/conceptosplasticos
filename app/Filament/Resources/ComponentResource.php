@@ -22,8 +22,8 @@ class ComponentResource extends Resource
 {
     protected static ?string $model = Component::class;
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationLabel = 'Inventary';
-    protected static ?string $label = 'Inventary';
+    protected static ?string $navigationLabel = 'Component/Inventary';
+    protected static ?string $label = 'Components';
     protected static ?int $navigationSort = 4;
 
     protected $in = 0;

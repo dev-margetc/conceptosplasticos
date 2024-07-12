@@ -21,7 +21,7 @@ class RawMaterialResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?int $navigationSort = 3;
-    protected static ?string $navigationLabel = 'Components/Mix';
+    protected static ?string $navigationLabel = 'Mix';
 
     public static function form(Form $form): Form
     {
