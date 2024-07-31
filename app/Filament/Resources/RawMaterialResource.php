@@ -42,36 +42,19 @@ class RawMaterialResource extends Resource
                         Forms\Components\TextInput::make('stock')
                             ->required()
                             ->numeric(),
-                        Forms\Components\TextInput::make('length')
-                            ->required()
-                            ->numeric(),
-                        Forms\Components\TextInput::make('broad')
-                            ->required()
-                            ->numeric(),
-                        Forms\Components\TextInput::make('height')
-                            ->required()
-                            ->numeric(),
-                        Forms\Components\Select::make('client_id')
-                            ->label('Project Name')
-                            ->options(Project::whereNotNull('name')->pluck('name', 'id'))
-                            ->searchable(),
+                        // Forms\Components\TextInput::make('length')
+                        //     ->required()
+                        //     ->numeric(),
+                        // Forms\Components\TextInput::make('broad')
+                        //     ->required()
+                        //     ->numeric(),
+                        // Forms\Components\TextInput::make('height')
+                        //     ->required()
+                        //     ->numeric(),
                         // Forms\Components\Select::make('client_id')
-                        // ->label('Project')
-                        // ->relationship('client', 'project_name')
-                        // ->getSearchResultsUsing(function (string $query) {
-                        //     return Client::whereNotNull('project_name')
-                        //         ->where('project_name', 'like', "%{$query}%")
-                        //         ->pluck('project_name', 'id');
-                        // })
-                        // ->getOptionLabelUsing(function ($value) {
-                        //     $client = \App\Models\Client::find($value);
-                        //     return $client ? $client->project_name : null;
-                        // })
-                        //     ->label('project')
-                        //     ->preload(),
-                        // Forms\Components\TextInput::make('client_id')
-                        //     ->numeric()
-                        //     ->default(null),
+                        //     ->label('Project Name')
+                        //     ->options(Project::whereNotNull('name')->pluck('name', 'id'))
+                        //     ->searchable(),
                     ])
             ]);
     }

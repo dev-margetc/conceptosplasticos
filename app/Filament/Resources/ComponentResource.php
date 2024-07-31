@@ -58,16 +58,27 @@ class ComponentResource extends Resource
                             ->required(),
                          Forms\Components\TextInput::make('quantity')
                             ->numeric()
-                            ->label('Quantity')
-                            ->required(),
+                            ->label('Quantity'),
                         Forms\Components\TextInput::make('weight')
                             ->numeric()
                             ->label('Weight')
                             ->required(),
-                        Forms\Components\TextInput::make('total_weight')
+                        Forms\Components\TextInput::make('length')
+                            ->required()
+                            ->numeric(),
+                        Forms\Components\TextInput::make('broad')
+                            ->required()
+                            ->numeric(),
+                        Forms\Components\TextInput::make('height')
+                            ->required()
+                            ->numeric(),
+                        Forms\Components\TextInput::make('value_kilo')
+                            ->required()
                             ->numeric()
-                            ->label('Total Weight')
-                            ->required(),
+                        // Forms\Components\TextInput::make('total_weight')
+                        //     ->numeric()
+                        //     ->label('Total Weight')
+                        //     ->required(),
                     ]),
                 Section::make('select mix')
                     ->columns(3)
@@ -96,34 +107,9 @@ class ComponentResource extends Resource
                         ? 'No materials' 
                         : $record->rawMaterial->map(fn ($material) => $material->name . ' - ' . $material->pivot->percentage . '%')->implode(', ');
                     }),
-                Tables\Columns\TextColumn::make('latest_stock')
+                Tables\Columns\TextColumn::make('Stock')
                     ->default(0),
-                // Tables\Columns\TextInputColumn::make('in')
-                //     ->label('IN')
-                    // ->readOnly()
-                    // ->live()
-                    // ->updateStateUsing(function ($record, $state) {
-                    //     $record->in =  $state;
-                    //     return $state;
-                        
-                    // })
-                    // ->readOnly()
-                    // ,
-                // Tables\Columns\TextInputColumn::make('out')
-                //     ->label('OUT')
-                //     ->default('')
-                //     ->sortable()
-                //     ->searchable(),
-                //     Tables\Columns\SelectColumn::make('project_id')
-                //     ->label('Project')
-                //     ->options(Project::all()->pluck('name', 'id'))
-                //     ->default(null)
-                //     ->searchable()
-                    // ->updateStateUsing(function ($record, $state) {
-                    //     $record->project_id = $state;
-                    //     // $record->save();
-                    // })
-                    // ->getState(),
+                
             ])
             ->filters([
                 //

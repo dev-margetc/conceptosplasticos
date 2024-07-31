@@ -13,11 +13,7 @@ class RawMaterial extends Model
         'name',
         'reference',
         'cost_kg',
-        'length',
-        'broad',
-        'height',
         'stock',
-        'client_id',
     ];
 
     public function client()

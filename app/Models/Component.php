@@ -9,7 +9,20 @@ class Component extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'group_id', 'quantity', 'weight', 'total_weight', 'wall', 'ubication', 'large' ];
+    protected $fillable = [
+        'name',
+        'group_id',
+        'quantity',
+        'weight',
+        'total_weight',
+        'wall',
+        'ubication',
+        'large',
+        'length',
+        'broad',
+        'height',
+        'value_kilo',
+    ];
 
     public function group()
     {

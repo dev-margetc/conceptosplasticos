@@ -15,7 +15,7 @@ class AddComponentToProjectAction extends Action
     public static function make($name = 'create'): static
     {
         return parent::make($name)
-            ->label('New Component')
+            ->label('Add Component')
             ->form([
                 Forms\Components\Select::make('component_id')
                     ->label('Select Component')
@@ -48,7 +48,6 @@ class AddComponentToProjectAction extends Action
                 $out = $data['out'];
                 $newStock = $in - $out;
 
-                // Crear el registro de historial de componentes
                 ComponentHistory::create([
                     'component_project_id' => $componentProject->id,
                     'stock' => $newStock,
