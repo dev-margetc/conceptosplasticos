@@ -9,14 +9,15 @@ use Filament\Forms\Form;
 use App\Models\Component;
 use Filament\Tables\Table;
 use App\Models\RawMaterial;
+use App\Models\ComponentHistory;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Section;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\ComponentResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ComponentResource\RelationManagers;
-use App\Filament\Resources\ComponentResource\Actions\CreateComponentHistoryAction;
 use App\Filament\Resources\ComponentResource\Actions\ViewHistoryAction;
+use App\Filament\Resources\ComponentResource\Actions\CreateComponentHistoryAction;
 
 class ComponentResource extends Resource
 {
@@ -87,7 +88,6 @@ class ComponentResource extends Resource
                 
             ]);
     }
-
     public static function table(Table $table): Table
     {
         return $table
@@ -108,7 +108,7 @@ class ComponentResource extends Resource
                         : $record->rawMaterial->map(fn ($material) => $material->name . ' - ' . $material->pivot->percentage . '%')->implode(', ');
                     }),
                 Tables\Columns\TextColumn::make('Stock')
-                    ->default(0),
+                    ->getStateUsing(fn ($record) =>   $record->stock),
                 
             ])
             ->filters([

@@ -43,16 +43,21 @@ class Component extends Model
     {
         return $this->belongsToMany(Project::class, 'component_project');
     }
-    public function getKgPriceAttribute()
+    // public function getKgPriceAttribute()
+    // {
+    //     return $this->rawMaterial->sum('cost_kg');
+    // }
+    public function getStockAttribute()
     {
-        return $this->rawMaterial->sum('cost_kg');
+        // return $this->componentHistory()->orderBy('created_at', 'desc')->first()->stock ?? 0;
+        return $this->componentHistory()
+        ->whereHas('componentProject', function ($query) {
+            $query->whereNull('project_id');
+        })
+        ->sum('stock');
     }
-    public function getLatestStockAttribute()
-    {
-        return $this->componentHistory()->orderBy('created_at', 'desc')->first()->stock ?? 0;
-    }
-    public function getTotalCostAttribute()
-    {
-        return $this->quantity * $this->rawMaterial->sum('cost_kg');
-    }
+    // public function getTotalCostAttribute()
+    // {
+    //     return $this->quantity * $this->rawMaterial->sum('cost_kg');
+    // }
 }
