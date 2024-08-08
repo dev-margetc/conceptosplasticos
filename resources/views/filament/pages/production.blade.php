@@ -1,3 +1,3 @@
 <x-filament-panels::page>
-    @livewire('production-step-one')
+    @livewire('production.step-five.summary')
 </x-filament-panels::page>

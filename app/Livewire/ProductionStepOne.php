@@ -26,6 +26,7 @@ class ProductionStepOne extends Component implements HasForms, HasTable
     public $projectId;
     public $groupId;
     public $showTable = false;
+    public $totalWeight = 10;
 
     public function mount()
     {
@@ -64,8 +65,6 @@ class ProductionStepOne extends Component implements HasForms, HasTable
                 Action::make('select_inventary')
                     ->label('Select inventary')
                     ->button(),
-                    // ->modalWidth(MaxWidth::SevenExtraLarge)
-                    // ->modalContent(fn ($record) => view('filament.pages.client-resource.view-history')),
                 Action::make('mix')
                     ->label('Mix'),
                 
