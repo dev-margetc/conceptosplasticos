@@ -1,0 +1,1 @@
+@livewire('production.step-one.model-components-by-group', ['componentName' => $componentName])

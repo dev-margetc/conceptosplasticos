@@ -9,7 +9,6 @@
                     @endforeach
                 </x-filament::input.select>
             </x-filament::input.wrapper>
-                
         </div>
     
         @if($projectId)
@@ -45,7 +44,7 @@
     <br><br>
     @if($showTable)
         <div class="mt-4">
-            {{ $this->table }}
+            @livewire('production.step-one.component-by-group-project', ["projectId"=> $projectId, "groupId"=> $groupId])
         </div>
     @endif
 </div>

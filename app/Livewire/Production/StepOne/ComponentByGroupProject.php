@@ -1,47 +1,26 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Production\StepOne;
 
-use Filament\Tables;
-use App\Models\Group;
-use App\Models\Project;
 use Livewire\Component;
-use Filament\Tables\Table;
-use Filament\Tables\Actions\Action;
-use Filament\Support\Enums\MaxWidth;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Contracts\HasTable;
-use App\Models\Component as ModelComponent;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Filament\Tables\Actions\Action;
+use App\Models\Component as ModelComponent;
+use Illuminate\Contracts\View\View;
 
-
-class ProductionStepOne extends Component implements HasForms, HasTable
+class ComponentByGroupProject extends Component implements HasForms, HasTable
 {
     use InteractsWithTable;
     use InteractsWithForms;
 
-    public $projects = [];
-    public $groups = [];
     public $projectId;
     public $groupId;
-    public $showTable = false;
-    public $totalWeight = 10;
 
-    public function mount()
-    {
-        $this->projects = Project::all();
-    }
-    public function getGroups()
-    {
-        $this->groups = Group::all();
-    }
-    public function showTableByGroup()
-    {
-        if ( $this->projectId &&  $this->groupId) {
-            $this->showTable = true;
-        }
-    }
     public function table(Table $table): Table
     {
         return $table
@@ -64,7 +43,14 @@ class ProductionStepOne extends Component implements HasForms, HasTable
             ->actions([
                 Action::make('select_inventary')
                     ->label('Select inventary')
-                    ->button(),
+                    ->button()
+                    ->modalContent(fn (ModelComponent $record): View => view(
+                        'filament.pages.production.view-mix-components',
+                        ['componentName' => $record->name],
+                    )
+                    
+                    
+                    ),
                 Action::make('mix')
                     ->label('Mix'),
                 
@@ -74,8 +60,9 @@ class ProductionStepOne extends Component implements HasForms, HasTable
                 // ...
             ]);
     }
+
     public function render()
     {
-        return view('livewire.production-step-one');
+        return view('livewire.production.step-one.component-by-group-project');
     }
 }
