@@ -8,7 +8,7 @@
             </x-slot>
             <x-filament::input
                 type="text"
-                wire:model="total"
+                wire:model="totalValue"
                 disabled
             />
         </x-filament::input.wrapper>
