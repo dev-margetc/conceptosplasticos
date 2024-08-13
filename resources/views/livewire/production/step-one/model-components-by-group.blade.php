@@ -1,7 +1,6 @@
 <div>
     
     @foreach ($components as $component)
-    {{-- {{dd($component->rawMaterial)}} --}}
         <div class="p-4 border-b">
             <h4>{{ $component->name }}</h4> 
             @foreach ($component->rawMaterial as $material)
