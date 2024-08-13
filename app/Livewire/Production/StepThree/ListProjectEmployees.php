@@ -18,6 +18,9 @@ class ListProjectEmployees extends Component implements HasForms, HasTable
 
     public $staff;
     public array $selectedStaff = [];
+    public $projectId;
+
+    protected $listeners = ['staffAdded' => 'reloadTable'];
 
     public function table(Table $table): Table
     {
@@ -62,6 +65,10 @@ class ListProjectEmployees extends Component implements HasForms, HasTable
             ->select('staff.*', 'project_staff.number_shifts')
             ->join('project_staff', 'staff.id', '=', 'project_staff.staff_id')
             ->where('project_staff.project_id', 1);
+    }
+    public function reloadTable()
+    {
+        // Puedes agregar lógica adicional si es necesario
     }
     public function mount(){
         $this->staff = Staff::all();

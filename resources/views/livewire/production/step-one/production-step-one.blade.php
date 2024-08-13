@@ -1,5 +1,9 @@
 <div>
-    <div class="flex gap-4">
+    <h1 class="fi-header-heading text-2xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-3xl">
+        Step 1: Mix
+    </h1>
+    <br>
+    <div class="flex gap-4">       
         <div class="w-1/2">
             <x-filament::input.wrapper>
                 <x-filament::input.select wire:model="projectId" id="project_id" wire:change="getGroups">
@@ -29,7 +33,7 @@
     </div>
     @if($projectId)
     <br>
-        <div >
+        <div>
             <x-filament::input.wrapper>
                 <x-filament::input.select wire:model="groupId" id="group_id"  wire:change="showTableByGroup">
                     <option value="">Choose a Group</option>

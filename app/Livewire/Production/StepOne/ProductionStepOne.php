@@ -25,19 +25,21 @@ class ProductionStepOne extends Component
     }
     public function showTableByGroup()
     {
-            $this->showTable = $this->projectId &&  $this->groupId;
+        $this->showTable = $this->projectId &&  $this->groupId;
     }
     public function updatedProjectId()
     {
         $this->getGroups();
         $this->groupId = null;
-        $this->showTable = false; // Ocultar la tabla hasta que se seleccione un nuevo grupo
+        $this->showTable = false; 
+        $this->dispatch('updateProjectId', $this->projectId); // dispatch evento
     }
     public function updatedGroupId()
     {
         $this->showTableByGroup();
+        $this->dispatch('updateGroupId', $this->groupId); // Emitir evento
     }
-   
+    
     public function render()
     {
         return view('livewire.production.step-one.production-step-one');

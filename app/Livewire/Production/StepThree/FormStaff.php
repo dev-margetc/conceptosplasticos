@@ -2,24 +2,30 @@
 
 namespace App\Livewire\Production\StepThree;
 
-use Livewire\Component;
 use App\Models\Staff;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Checkbox;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
+use App\Models\Project;
+use Livewire\Component;
 use Filament\Forms\Form;
 use Illuminate\Contracts\View\View;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
+use Filament\Forms\Concerns\InteractsWithForms;
 
 class FormStaff extends Component implements HasForms
 {
     use InteractsWithForms;
 
     public ?array $data = [];
+    public ?array $selectedStaff = [];
+    public $projectId;
+    public $staffList = [];
 
     public function mount(): void
     {
         $this->form->fill();
+        $this->loadStaffList();
     }
     protected function getForms(): array
     {
@@ -69,35 +75,65 @@ class FormStaff extends Component implements HasForms
     public function create(): void
     {
         $validatedData = $this->form->getState();
-
-        Staff::create($validatedData);
-
-        session()->flash('success', 'Staff member added successfully!');
-
+        $staff = Staff::create($validatedData);
+        // $this->formSelectedStaff->fill();
+        Notification::make()
+            ->title('Staff member added successfully!')
+            ->success()
+            ->send();
+        $this->loadStaffList();
+            // $this->formSelectedStaff->fill();
         $this->reset('data');
+        $this->selectedStaff['employeed_' . $staff->id] = true;
     }
     public function formSelectedStaff(Form $form): Form
     {
         return $form
-            ->schema(self::getStaffCheckBox())
-            ->statePath('data');
+            ->schema($this->getStaffCheckBox())
+            ->statePath('selectedStaff');
     }
-    private static function getStaffCheckBox(): array
+    private function loadStaffList()
     {
-        $staff = Staff::all();
+        $this->staffList = Staff::all();
+    }
+    private function getStaffCheckBox(): array
+    {
+        // $staff = Staff::all();
         $materialSchemas = [];
 
-        foreach ($staff as $employeed) {
+        foreach ($this->staffList as $employeed) {
             $materialSchemas[] = Checkbox::make('employeed_' . $employeed->id)
                 ->label($employeed->role_name);
         }
 
         return $materialSchemas;
     }
+    public function saveSelectedStaff()
+    {
+        // dd($this->projectId);
+        $project = Project::find($this->projectId);
+
+        if (!$project) {
+            session()->flash('error', 'Project not found!');
+            return;
+        }
+
+        $selectedIds = array_keys(array_filter($this->selectedStaff));
+
+        foreach ($selectedIds as $staffKey) {
+            $staffId = str_replace('employeed_', '', $staffKey);
+            $project->staff()->attach($staffId);
+        }
+        Notification::make()
+            ->title('Staff member added successfully!')
+            ->success()
+            ->send();
+
+            $this->dispatch('staffAdded');
+    }
 
     public function render()
     {
-        // dd('aqui');
         return view('livewire.production.step-three.form-staff');
     }
 }

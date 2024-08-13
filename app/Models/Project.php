@@ -23,4 +23,8 @@ class Project extends Model
     {
         return $this->belongsToMany(Component::class, 'component_project');
     }
+    public function staff()
+    {
+        return $this->belongsToMany(Staff::class)->withPivot('number_shifts')->withTimestamps();
+    }
 }

@@ -76,10 +76,6 @@ class ComponentResource extends Resource
                         Forms\Components\TextInput::make('value_kilo')
                             ->required()
                             ->numeric()
-                        // Forms\Components\TextInput::make('total_weight')
-                        //     ->numeric()
-                        //     ->label('Total Weight')
-                        //     ->required(),
                     ]),
                 Section::make('select mix')
                     ->columns(3)
