@@ -5,7 +5,7 @@ namespace App\Livewire\Production\StepThree;
 use Livewire\Component;
 use App\Models\Staff;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\TextInput\Mask;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
@@ -21,7 +21,13 @@ class FormStaff extends Component implements HasForms
     {
         $this->form->fill();
     }
-
+    protected function getForms(): array
+    {
+        return [
+            'formSelectedStaff',
+            'form'
+        ];
+    }
     public function form(Form $form): Form
     {
         return $form
@@ -60,7 +66,6 @@ class FormStaff extends Component implements HasForms
             ])
             ->statePath('data');
     }
-
     public function create(): void
     {
         $validatedData = $this->form->getState();
@@ -70,6 +75,24 @@ class FormStaff extends Component implements HasForms
         session()->flash('success', 'Staff member added successfully!');
 
         $this->reset('data');
+    }
+    public function formSelectedStaff(Form $form): Form
+    {
+        return $form
+            ->schema(self::getStaffCheckBox())
+            ->statePath('data');
+    }
+    private static function getStaffCheckBox(): array
+    {
+        $staff = Staff::all();
+        $materialSchemas = [];
+
+        foreach ($staff as $employeed) {
+            $materialSchemas[] = Checkbox::make('employeed_' . $employeed->id)
+                ->label($employeed->role_name);
+        }
+
+        return $materialSchemas;
     }
 
     public function render()
