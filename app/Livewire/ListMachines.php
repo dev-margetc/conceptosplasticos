@@ -54,7 +54,6 @@ class ListMachines extends Component implements HasForms, HasTable
                             ->required()
                     ])
                     ->action(function ( array $data) {
-                        // dd($data);
                         MachineProcess::create([
                             'machine_id' => $data['machine_id'],
                             'process_id' => $this->processId,

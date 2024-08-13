@@ -7,6 +7,8 @@ use Livewire\Component;
 
 class ListProcessesAndMachines extends Component
 {
+    public $isProduction = false;
+    public $projectId;
    
     public function render()
     {

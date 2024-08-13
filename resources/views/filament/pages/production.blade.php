@@ -1,3 +1,3 @@
 <x-filament-panels::page>
-    @livewire('production.step-fourt.table-fixed-costs')
+    @livewire('production.production')
 </x-filament-panels::page>
