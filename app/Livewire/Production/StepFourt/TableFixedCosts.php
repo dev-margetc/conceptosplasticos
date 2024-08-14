@@ -17,6 +17,9 @@ class TableFixedCosts extends Component implements HasForms, HasTable
     use InteractsWithForms;
 
     public $totalValue;
+    public $projectId;
+
+    protected $listeners = ['itemAdded' => 'reloadTable'];
 
     public function mount()
     {
@@ -68,6 +71,10 @@ class TableFixedCosts extends Component implements HasForms, HasTable
             ->bulkActions([
                 // ...
             ]);
+    }
+    public function reloadTable()
+    {
+        $this->calculateTotal();
     }
 
     public function render()
