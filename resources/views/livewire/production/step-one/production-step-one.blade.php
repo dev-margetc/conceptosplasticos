@@ -23,7 +23,7 @@
                     </x-slot>
                     <x-filament::input
                         type="text"
-                        wire:model="totalWeight"
+                        wire:model="totalProjectWeight"
                         disabled
                     />
                 </x-filament::input.wrapper>

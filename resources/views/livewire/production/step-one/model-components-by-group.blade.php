@@ -6,7 +6,7 @@
             @foreach ($component->rawMaterial as $material)
                 <p>{{ $material->name }}: {{ $material->pivot->percentage }}%</p>
             @endforeach
-            <x-filament::button >
+            <x-filament::button wire:click="selectComponent(1)">
                 Select
             </x-filament::button>
         </div>

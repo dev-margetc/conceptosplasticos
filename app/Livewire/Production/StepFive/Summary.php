@@ -11,6 +11,8 @@ use Filament\Forms\Form;
 class Summary extends Component implements HasForms
 {
     use InteractsWithForms;
+    
+    public $totalProjectWeight;
 
     public function form(Form $form): Form
     {

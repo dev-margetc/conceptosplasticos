@@ -18,15 +18,13 @@ class TableMixSelected extends Component implements HasForms, HasTable
     use InteractsWithTable;
     use InteractsWithForms;
 
-    public $componentId;
+    public $componentId=1;
 
     public function table(Table $table): Table
     {
         return $table
             ->query(
-                RawMaterial::whereHas('components', function ($query) {
-                    $query->where('id', 1);
-                })
+                RawMaterial::query()
             )
             ->columns([
                 Tables\Columns\TextColumn::make('name'),

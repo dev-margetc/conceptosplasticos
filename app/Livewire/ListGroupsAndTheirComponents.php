@@ -38,7 +38,10 @@ class ListGroupsAndTheirComponents extends Component implements HasForms, HasTab
                 Tables\Columns\TextColumn::make('name')->label('Group')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('quantity')->label('Quantity'),
                 Tables\Columns\TextColumn::make('weight')->label('Weight'),
-                Tables\Columns\TextColumn::make('total_weight')->label('Total Weight'),
+                Tables\Columns\TextColumn::make('total_weight')->label('Total Weight')->getStateUsing(function ($record) {
+                    // dd( $record->Weight );
+                    return $record->weight * $record->quantity;
+                }),
                 Tables\Columns\TextColumn::make('kg_price')->label('Kg. Price')->getStateUsing(function ($record) {
                     return $record->kg_price;
                 })->sortable(),

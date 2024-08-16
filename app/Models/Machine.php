@@ -19,4 +19,11 @@ class Machine extends Model
     {
         return $this->belongsToMany(Process::class, 'machine_process');
     }
+    public function calculateTotalHours($totalProjectWeight)
+    {
+        $totalCapacity = $this->where('status', '1')->sum('capacity');
+        return $totalCapacity > 0 
+            ? $totalProjectWeight / $totalCapacity 
+            : 0;
+    }
 }

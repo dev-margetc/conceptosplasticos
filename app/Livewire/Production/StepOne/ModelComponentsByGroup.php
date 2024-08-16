@@ -22,6 +22,11 @@ class ModelComponentsByGroup extends Component
             }])
             ->get();
     }
+    public function selectComponent($componentId)
+    {
+        $this->dispatch('componentSelected', $componentId); // Emitir evento
+        $this->dispatch('closeModal'); // Cerrar el modal
+    }
     public function render()
     {
         return view('livewire.production.step-one.model-components-by-group', [

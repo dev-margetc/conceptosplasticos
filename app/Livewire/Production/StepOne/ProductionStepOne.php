@@ -13,7 +13,8 @@ class ProductionStepOne extends Component
     public $projectId;
     public $groupId;
     public $showTable = false;
-    public $totalWeight = 10;
+    // public $totalWeight = 10;
+    public $totalProjectWeight;
 
     public function mount()
     {
@@ -32,7 +33,9 @@ class ProductionStepOne extends Component
         $this->getGroups();
         $this->groupId = null;
         $this->showTable = false; 
-        $this->dispatch('updateProjectId', $this->projectId); // dispatch evento
+        $project = Project::find($this->projectId);
+        $this->totalProjectWeight = $project->total_weight;
+        $this->dispatch('updateProjectId', $this->projectId, $this->totalProjectWeight); // dispatch evento
     }
     public function updatedGroupId()
     {

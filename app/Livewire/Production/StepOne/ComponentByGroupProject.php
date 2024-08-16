@@ -20,8 +20,11 @@ class ComponentByGroupProject extends Component implements HasForms, HasTable
 
     public $projectId;
     public $groupId;
+    public $showMixTable = false;
+
     protected $listeners = [
         'updateGroupId' => 'updateGroup',
+        'componentSelected' => 'showMixTable',
     ];
     public function table(Table $table): Table
     {
@@ -67,6 +70,11 @@ class ComponentByGroupProject extends Component implements HasForms, HasTable
     {
         $this->groupId = $groupId;
         $this->resetTable(); // Forzar la actualización de la tabla
+    }
+    public function showMixTable($componentId)
+    {
+        $this->showMixTable = true;
+        // Aquí puedes manejar la lógica adicional si lo necesitas
     }
     public function render()
     {

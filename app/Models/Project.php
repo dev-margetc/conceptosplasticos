@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Project extends Model
 {
@@ -26,5 +27,9 @@ class Project extends Model
     public function staff()
     {
         return $this->belongsToMany(Staff::class)->withPivot('id','number_shifts')->withTimestamps();
+    }
+    public function getTotalWeightAttribute()
+    {
+        return $this->component()->sum(DB::raw('weight * quantity'));
     }
 }
