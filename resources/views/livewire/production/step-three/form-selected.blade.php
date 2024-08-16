@@ -1,3 +1,6 @@
 <div>
-    {{-- Care about people's approval and you will be their prisoner. --}}
+    <form wire:submit.prevent="submit">
+        {{ $this->form }}
+        <button type="submit">Submit</button>
+    </form>
 </div>

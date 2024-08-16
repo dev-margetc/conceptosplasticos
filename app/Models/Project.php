@@ -25,6 +25,6 @@ class Project extends Model
     }
     public function staff()
     {
-        return $this->belongsToMany(Staff::class)->withPivot('number_shifts')->withTimestamps();
+        return $this->belongsToMany(Staff::class)->withPivot('id','number_shifts')->withTimestamps();
     }
 }

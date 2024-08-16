@@ -42,6 +42,8 @@ class FormFixedCosts extends Component implements HasForms
     public function create(): void
     {
         $validatedData = $this->form->getState();
+        $validatedData['project_id'] = $this->projectId;
+        // dd( $validatedData);
         $staff = FixedCost::create($validatedData);
         Notification::make()
             ->title('Item  added successfully!')

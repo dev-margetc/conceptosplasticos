@@ -15,6 +15,7 @@ class FixedCostSeeder extends Seeder
     {
         DB::table('fixed_costs')->insert([
             [
+                'project_id'=> 1,
                 'item' => 'arriendo',
                 'unit_value' => 2.00,
                 'stake' => 50.00,
@@ -22,6 +23,7 @@ class FixedCostSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'project_id'=> 1,
                 'item' => 'electricidad',
                 'unit_value' => 1.50,
                 'stake' => 30.00,
@@ -29,6 +31,7 @@ class FixedCostSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'project_id'=> 1,
                 'item' => 'agua',
                 'unit_value' => 0.75,
                 'stake' => 20.00,
@@ -36,6 +39,7 @@ class FixedCostSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'project_id'=> 1,
                 'item' => 'internet',
                 'unit_value' => 1.25,
                 'stake' => 40.00,

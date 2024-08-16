@@ -13,5 +13,6 @@ class FixedCost extends Model
         'item',
         'unit_value',
         'stake',
+        'project_id'
     ];
 }

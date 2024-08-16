@@ -28,7 +28,7 @@ class TableFixedCosts extends Component implements HasForms, HasTable
 
     public function calculateTotal()
     {
-        $this->totalValue = FixedCost::query()
+        $this->totalValue = FixedCost::where('project_id', $this->projectId)
             ->get()
             ->reduce(function ($carry, $item) {
                 return $carry + ($item->unit_value * ($item->stake / 100));
@@ -39,7 +39,7 @@ class TableFixedCosts extends Component implements HasForms, HasTable
     {
         return $table
             ->query(
-                FixedCost::query()
+                FixedCost::where('project_id', $this->projectId)
             )
             ->columns([
                 Tables\Columns\TextColumn::make('item')
@@ -51,10 +51,16 @@ class TableFixedCosts extends Component implements HasForms, HasTable
                 Tables\Columns\TextInputColumn::make('unit_value')
                     ->label('Valor unitario')
                     ->sortable()
+                    ->afterStateUpdated(function ($record, $state) {
+                        $this->calculateTotal();
+                    })
                     ->default(''),
                 Tables\Columns\TextInputColumn::make('stake')
                     ->label('% participacion')
                     ->sortable()
+                    ->afterStateUpdated(function ($record, $state) {
+                        $this->calculateTotal();
+                    })
                     ->default(''),
                 Tables\Columns\TextColumn::make('total_value')
                     ->label('Valor total')

@@ -20,9 +20,12 @@ class ComponentByGroupProject extends Component implements HasForms, HasTable
 
     public $projectId;
     public $groupId;
-
+    protected $listeners = [
+        'updateGroupId' => 'updateGroup',
+    ];
     public function table(Table $table): Table
     {
+        // dd($this->groupId);
         return $table
             ->query(
                 ModelComponent::query()
@@ -60,7 +63,11 @@ class ComponentByGroupProject extends Component implements HasForms, HasTable
                 // ...
             ]);
     }
-
+    public function updateGroup($groupId)
+    {
+        $this->groupId = $groupId;
+        $this->resetTable(); // Forzar la actualización de la tabla
+    }
     public function render()
     {
         return view('livewire.production.step-one.component-by-group-project');
