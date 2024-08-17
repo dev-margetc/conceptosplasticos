@@ -2,47 +2,59 @@
 
 namespace App\Livewire\Production\StepOne;
 
+use Filament\Tables;
 use Livewire\Component;
+use Filament\Tables\Table;
+use App\Models\RawMaterial;
+use App\Models\ComponentProject;
+use Filament\Tables\Actions\Action;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Contracts\HasTable;
+use App\Models\Component as ModelComponent;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables;
-use Filament\Tables\Table;
-use Filament\Tables\Actions\Action;
-use App\Models\RawMaterial;
-use Illuminate\Contracts\View\View;
 
 class TableMixSelected extends Component implements HasForms, HasTable
 {
     use InteractsWithTable;
     use InteractsWithForms;
 
-    public $componentId=1;
+    // public $componentId=1;
+    public $projectId;
+    public $waste = 5;
+    public $total = 0;
+
+    protected $listeners = ['reloadTableMix' => 'reloadTable'];
 
     public function table(Table $table): Table
     {
         return $table
             ->query(
-                RawMaterial::query()
+                ComponentProject::getComponentMaterials($this->projectId)
             )
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('Cost por'),
-                Tables\Columns\TextColumn::make('stock')->default(0),
-                Tables\Columns\TextColumn::make('missing')->default(0),
+                Tables\Columns\TextColumn::make('component_name')->label('Component Name'),
+                Tables\Columns\TextColumn::make('material_name')->label('Material Name'),
+                Tables\Columns\TextColumn::make('cost_kg')->label('Cost Kg'),
+                Tables\Columns\TextColumn::make('percentage')->label('% Mix'),
+                Tables\Columns\TextColumn::make('requeriment')->label('Requeriment')->default(''),
+                Tables\Columns\TextColumn::make('stock')->label('Stock'),
+                Tables\Columns\TextColumn::make('missing')->label('Missing'),
+                Tables\Columns\TextColumn::make('total')->label('Vr. Total'),
             ])
             ->filters([
                 // ...
             ])
             ->actions([
                 
-                
-                
             ])
             ->bulkActions([
                 // ...
             ]);
+    }
+    public function reloadTable()
+    {
+        
     }
     public function render()
     {

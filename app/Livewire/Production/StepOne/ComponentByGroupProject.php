@@ -35,8 +35,8 @@ class ComponentByGroupProject extends Component implements HasForms, HasTable
                 ->whereHas('project', function ($query) {
                     $query->where('project_id', $this->projectId);
                 })
-            ->where('group_id', $this->groupId)
-        )
+                ->where('group_id', $this->groupId)
+            )
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('quantity'),
@@ -52,14 +52,21 @@ class ComponentByGroupProject extends Component implements HasForms, HasTable
                     ->button()
                     ->modalContent(fn (ModelComponent $record): View => view(
                         'filament.pages.production.view-mix-components',
-                        ['componentName' => $record->name],
-                    )
-                    
-                    
-                    ),
+                        ['componentName' => $record->name, 'projectId' => $this->projectId],
+                    ))
+                    ->disabled(function ($record) {
+                        // dd(ModelComponent::isComponentSelectable($record->name, $this->projectId));
+                        return ModelComponent::isComponentSelectable($record->name, $this->projectId);
+                    }),
                 Action::make('mix')
-                    ->label('Mix'),
-                
+                    ->label('Mix')
+                    ->modalContent(fn (ModelComponent $record): View => view(
+                        'filament.pages.production.table-mix-by-component',
+                        ['componentName' => $record->name, 'projectId' => $this->projectId],
+                    ))
+                    ->disabled(function ($record) {
+                        return !ModelComponent::isComponentSelectable($record->name, $this->projectId);
+                    }),
                 
             ])
             ->bulkActions([
@@ -69,7 +76,7 @@ class ComponentByGroupProject extends Component implements HasForms, HasTable
     public function updateGroup($groupId)
     {
         $this->groupId = $groupId;
-        $this->resetTable(); // Forzar la actualización de la tabla
+        $this->resetTable(); 
     }
     public function showMixTable($componentId)
     {

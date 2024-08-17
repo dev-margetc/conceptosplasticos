@@ -2,13 +2,17 @@
     
     @foreach ($components as $component)
         <div class="p-4 border-b">
-            <h4>{{ $component->name }}</h4> 
+            <h4>{{ $component->name }} </h4> 
             @foreach ($component->rawMaterial as $material)
                 <p>{{ $material->name }}: {{ $material->pivot->percentage }}%</p>
             @endforeach
-            <x-filament::button wire:click="selectComponent(1)">
+            {{-- {{$component->id}} --}}
+            {{-- <x-filament::button wire:click="selectComponent({{ $component->id }})">
                 Select
-            </x-filament::button>
+            </x-filament::button> --}}
+            <button wire:click="selectComponent({{ $component->id }})" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+                Select
+            </button>
         </div>
     @endforeach
 </div>

@@ -1,1 +1,1 @@
-@livewire('production.step-one.model-components-by-group', ['componentName' => $componentName])
+@livewire('production.step-one.model-components-by-group', ['componentName' => $componentName, 'projectId'=> $projectId])

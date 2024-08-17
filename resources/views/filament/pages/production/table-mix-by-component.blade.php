@@ -1,0 +1,1 @@
+@livewire('production.step-one.modal-material-by-component', ['componentName' => $componentName, 'projectId'=> $projectId])
