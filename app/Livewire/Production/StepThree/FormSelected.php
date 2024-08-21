@@ -6,10 +6,12 @@ use App\Models\Staff;
 use App\Models\Project;
 use Livewire\Component;
 use Filament\Forms\Form;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Notifications\Notification;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Notifications\Notification;
+use Filament\Forms\Components\Actions\Action;
 
 class FormSelected extends Component implements HasForms
 {
@@ -33,9 +35,20 @@ class FormSelected extends Component implements HasForms
         // dd('aq');
         return $form
             ->schema([
-                CheckboxList::make('staff')
+                Section::make('Selected Staff')
+                ->schema([
+                    CheckboxList::make('staff')
                     ->options(Staff::pluck('role_name', 'id')->toArray())
+                    // ->columns(2)
                     ->statePath('data'),
+                ])
+                ->footerActions([
+                    Action::make('submit')
+                        ->action(function () {
+                           $this->submit();
+                        })
+                ])
+                
             ]);
     }
 

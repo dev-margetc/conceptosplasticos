@@ -45,8 +45,8 @@ class ListMachines extends Component implements HasForms, HasTable
                 //
             ])
             ->headerActions([
-                Tables\Actions\Action::make('addComponent')
-                    ->label('Add component')
+                Tables\Actions\Action::make('addMachine')
+                    ->label('Add machine')
                     ->form([
                         Forms\Components\Select::make('machine_id')
                             ->label('Machine')

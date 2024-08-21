@@ -36,4 +36,18 @@
     </div>
     
     {{$this->table}}
+    <br>
+
+    <div class="w-1/2">
+        <x-filament::input.wrapper>
+            <x-slot name="prefix">
+                Total
+            </x-slot>
+            <x-filament::input
+                type="text"
+                wire:model="totalSalaryToPay"
+                disabled
+            />
+        </x-filament::input.wrapper>
+    </div>
 </div>

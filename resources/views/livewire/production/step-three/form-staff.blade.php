@@ -22,7 +22,7 @@
 <div class="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-8">
     <!-- Listado de Staff -->
     <div class="w-full lg:w-1/2 p-4 rounded">
-        <h2 class="font-bold mb-2">Selected Staff</h2>
+        {{-- <h2 class="font-bold mb-2">Selected Staff</h2> --}}
         @livewire('production.step-three.form-selected', ['projectId'=> $projectId])
         {{-- <form wire:submit.prevent="saveSelectedStaff">
             {{ $this->formSelectedStaff }}

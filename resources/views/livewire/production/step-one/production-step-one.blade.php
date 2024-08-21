@@ -48,7 +48,7 @@
     <br><br>
     @if($showTable)
         <div class="mt-4">
-            @livewire('production.step-one.component-by-group-project', ["projectId"=> $projectId, "groupId"=> $groupId])
+            @livewire('production.step-one.component-by-group-project', ["projectId"=> $projectId, "groupId"=> $groupId, "totalProjectWeight"=> $totalProjectWeight])
         </div>
     @endif
 </div>

@@ -30,6 +30,21 @@
                 </x-filament::section>
             @endforeach
         </div>
+        <br>
+        <div class="flex items-center w-1/2 space-x-4">
+            <x-filament::input.wrapper class="flex-1">
+                <x-slot name="prefix">
+                    Units
+                </x-slot>
+                <x-filament::input
+                    type="text"
+                    wire:model="units"
+                />
+            </x-filament::input.wrapper>
+            <x-filament::button wire:click="sendUnitsproject" class="ml-4">
+                Submit
+            </x-filament::button>
+        </div>
     @endif
 </div>
 

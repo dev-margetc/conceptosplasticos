@@ -5,7 +5,7 @@
         <div class="mt-4">
             <h3>Table Mix</h3>
             <br>
-            @livewire('production.step-one.table-mix-selected', ["projectId"=> $projectId])
+            @livewire('production.step-one.table-mix-selected', ["projectId"=> $projectId, "totalProjectWeight"=>$totalProjectWeight])
         </div>
     @endif
 </div>

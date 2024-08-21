@@ -19,10 +19,10 @@ class ListMachines extends ListRecords
             Actions\CreateAction::make(),
             Actions\Action::make('createProcess')
                 ->label('New process')
-                ->form([
-                    Forms\Components\TextInput::make('name')
-                        ->required()
-                ])
+                // ->form([
+                //     Forms\Components\TextInput::make('title')
+                // ])
+                ->modalHeading('Welcome')
                 ->action(function (array $data) {
                     dd($data);
                     Process::create([

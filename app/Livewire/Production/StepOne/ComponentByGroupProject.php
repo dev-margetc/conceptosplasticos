@@ -21,11 +21,13 @@ class ComponentByGroupProject extends Component implements HasForms, HasTable
     public $projectId;
     public $groupId;
     public $showMixTable = false;
+    public $totalProjectWeight;
 
     protected $listeners = [
         'updateGroupId' => 'updateGroup',
         'componentSelected' => 'showMixTable',
     ];
+    
     public function table(Table $table): Table
     {
         // dd($this->groupId);
@@ -41,7 +43,7 @@ class ComponentByGroupProject extends Component implements HasForms, HasTable
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('quantity'),
                 Tables\Columns\TextColumn::make('stock')->default(0),
-                Tables\Columns\TextColumn::make('missing')->default(0),
+                // Tables\Columns\TextColumn::make('missing')->default(0),
             ])
             ->filters([
                 // ...

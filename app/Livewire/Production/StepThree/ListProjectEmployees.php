@@ -36,16 +36,16 @@ class ListProjectEmployees extends Component implements HasForms, HasTable
                     ->label('Role Name')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('salary')
-                    ->label('Salary')
-                    ->money('usd')
-                    ->sortable(),
                 Tables\Columns\TextInputColumn::make('number_shifts')
                     ->label('Shifts')
                     ->updateStateUsing(function ($record, $state) {
                         // dd($record->id_pivote);
                         $this->updateNumberShifts($record->id_pivote, $state);
                     })
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('salary')
+                    ->label('Salary')
+                    ->money('usd')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('transport_assistance')
                     ->label('Transport Assistance')
