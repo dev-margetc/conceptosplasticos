@@ -18,6 +18,8 @@ class TableFixedCosts extends Component implements HasForms, HasTable
 
     public $totalValue;
     public $projectId;
+    public $totalFixedCosts;
+    public $totalVariableCosts;
 
     protected $listeners = ['itemAdded' => 'reloadTable'];
 
@@ -28,11 +30,9 @@ class TableFixedCosts extends Component implements HasForms, HasTable
 
     public function calculateTotal()
     {
-        $this->totalValue = FixedCost::where('project_id', $this->projectId)
-            ->get()
-            ->reduce(function ($carry, $item) {
-                return $carry + ($item->unit_value * ($item->stake / 100));
-            }, 0);
+        $this->totalFixedCosts = FixedCost::calculateFixedCosts($this->projectId);
+        $this->totalVariableCosts = FixedCost::calculateVariableCosts($this->projectId);
+        $this->totalValue = FixedCost::calculateTotalCosts($this->projectId);
     }
 
     public function table(Table $table): Table
@@ -46,7 +46,6 @@ class TableFixedCosts extends Component implements HasForms, HasTable
                     ->label('Item')
                     ->sortable()
                     ->searchable()
-                    // ->formatStateUsing(fn($state) => '$' . number_format($state, 2))
                     ->default(''),
                 Tables\Columns\TextInputColumn::make('unit_value')
                     ->label('Valor unitario')

@@ -13,7 +13,7 @@
             @livewire('production.step-fourt.table-fixed-costs', ['projectId' => $projectId])
             @break
         @case(5)
-            @livewire('production.step-five.summary',  ['projectId' => $projectId, 'totalProjectWeight' => $totalProjectWeight])
+            @livewire('production.step-five.summary',  ['projectId' => $projectId, 'totalComponents' => $totalComponents, 'totalMaterials'=> $totalMaterials])
             @break
         @default
             @livewire('production.step-one.production-step-one')

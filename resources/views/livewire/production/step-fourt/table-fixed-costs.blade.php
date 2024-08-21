@@ -16,6 +16,33 @@
     <br>
     {{$this->table}}
     <br>
+    <div class="flex gap-4">
+        <div class="w-1/2">
+            <x-filament::input.wrapper>
+                <x-slot name="prefix">
+                    Total Fixed Costs
+                </x-slot>
+                <x-filament::input
+                    type="text"
+                    wire:model="totalFixedCosts"
+                    disabled
+                />
+            </x-filament::input.wrapper>
+        </div>
+        <div class="w-1/2">
+            <x-filament::input.wrapper>
+                <x-slot name="prefix">
+                    Total Variable Costs
+                </x-slot>
+                <x-filament::input
+                    type="text"
+                    wire:model="totalVariableCosts"
+                    disabled
+                />
+            </x-filament::input.wrapper>
+        </div>
+    </div>
+    <br>
     <div class="w-1/2">
         <x-filament::input.wrapper>
             <x-slot name="prefix">

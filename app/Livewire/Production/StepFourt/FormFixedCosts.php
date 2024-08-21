@@ -8,7 +8,7 @@ use Livewire\Component;
 use Filament\Forms\Form;
 use Illuminate\Contracts\View\View;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -34,6 +34,13 @@ class FormFixedCosts extends Component implements HasForms
                 TextInput::make('stake')
                     ->label('Stake')
                     ->numeric()
+                    ->required(),
+                    Select::make('is_fixed')
+                    ->label('Type')
+                    ->options([
+                        0 => 'Fixed',
+                        1 => 'Variable',
+                    ])
                     ->required(),
                 
             ])

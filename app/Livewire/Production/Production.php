@@ -11,10 +11,14 @@ class Production extends Component
     public $projectId;
     public $groupId;
     public $totalProjectWeight;
+    public $totalComponents;
+    public $totalMaterials;
 
     protected $listeners = [
         'updateProjectId' => 'setProjectId',
         'updateGroupId' => 'setGroupId',
+        'updateTotalComponents' => 'setTotalComponents',
+        'updateTotalMaterials' => 'setTotalMaterials',
     ];
     public function setProjectId($projectId, $total_weight)
     {
@@ -25,6 +29,14 @@ class Production extends Component
     public function setGroupId($groupId)
     {
         $this->groupId = $groupId;
+    }
+    public function setTotalComponents($totalComponents)
+    {
+        $this->totalComponents = $totalComponents;
+    }
+    public function setTotalMaterials($totalMaterials)
+    {
+        $this->totalMaterials = $totalMaterials;
     }
     public function nextStep()
     {

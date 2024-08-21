@@ -22,12 +22,16 @@ class TableMixSelected extends Component implements HasForms, HasTable
     // public $componentId=1;
     public $projectId;
     public $waste = 5;
-    public $total = 0;
+    public $total;
     public $requeriment;
     public $totalProjectWeight;
     public $missing;
     protected $listeners = ['reloadTableMix' => 'reloadTable'];
 
+    public function mount()
+    {
+        $this->calculateTotal();
+    }
     public function table(Table $table): Table
     {
         return $table
@@ -45,7 +49,6 @@ class TableMixSelected extends Component implements HasForms, HasTable
                         return $this->requeriment;
                     })
                     ->default(0),
-                // Tables\Columns\TextColumn::make('requeriment')->label('Requeriment')->default(''),
                 Tables\Columns\TextColumn::make('stock')->label('Stock'),
                 Tables\Columns\TextColumn::make('missing')
                     ->getStateUsing(function ($record) {
@@ -72,7 +75,27 @@ class TableMixSelected extends Component implements HasForms, HasTable
     }
     public function reloadTable()
     {
-        
+        $this->calculateTotal();
+    }
+    public function calculateTotal()
+    {
+        $totalSum = ComponentProject::getComponentMaterials($this->projectId)
+            ->get()
+            ->sum(function ($record) {
+                $requeriment = $this->totalProjectWeight - ($this->totalProjectWeight *  floatval('0.'.$record->percentage));
+                $missing = $this->totalProjectWeight - $requeriment;
+                return $missing * $record->cost_kg;
+            });
+
+        $wasteSum = $totalSum * ($this->waste / 100);
+        $this->total = $totalSum + $wasteSum;
+        $this->dispatch('updateTotalComponents', $this->total );
+        $this->dispatch('updateTotalMaterials', $this->total );
+    }
+    public function updateWaste()
+    {
+        // dd('aqui');
+        $this->calculateTotal();
     }
     public function render()
     {

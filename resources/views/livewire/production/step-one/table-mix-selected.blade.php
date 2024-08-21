@@ -7,6 +7,7 @@
                 Waste %
             </x-slot>
             <x-filament::input
+                wire:change="updateWaste"
                 type="text"
                 wire:model="waste"
             />
